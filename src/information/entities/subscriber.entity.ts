@@ -2,22 +2,14 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
-export class OurWork{
+export class subscriber{
 
     @PrimaryGeneratedColumn('uuid')
     id: string
 
     @Column()
-    title: string;
-    
-    @Column()
-    description: string;
-
-    @Column('json')
-    images: {}
+    email: string;
 
     @Column()
     isDeleted: false;
 }
-
-
