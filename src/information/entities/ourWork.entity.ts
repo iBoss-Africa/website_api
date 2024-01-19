@@ -1,23 +1,23 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+// import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
-@Entity()
-export class OurWork{
+// @Entity()
+// export class OurWork{
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+//     @PrimaryGeneratedColumn('uuid')
+//     id: string
 
-    @Column()
-    title: string;
+//     @Column()
+//     title: string;
     
-    @Column()
-    description: string;
+//     @Column()
+//     description: string;
 
-    @Column('json')
-    images: {}
+//     @Column('json')
+//     images: {}
 
-    @Column()
-    isDeleted: false;
-}
+//     @Column()
+//     isDeleted: false;
+// }
 
 

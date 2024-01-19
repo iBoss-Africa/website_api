@@ -7,7 +7,5 @@ export class InformationController {
 
 
     @Post()
-    createService(@Body() body){
-        return this.informationService.create(body)
-    }
+    createService(@Body() body){ }
 }
