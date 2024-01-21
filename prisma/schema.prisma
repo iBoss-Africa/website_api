@@ -1,11 +1,68 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(45)
+  name      String   @db.VarChar(100)
+  password  String   @db.VarChar(60)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(ADMIN)
+  avatar    Avatar?
+}
+
+model Avatar {
+  id        Int    @id @default(autoincrement())
+  imageId   String
+  imagePath String
+  userId    Int    @unique
+  user      User   @relation(fields: [userId], references: [id])
+}
+
+model Our_Work {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String
+  image       Our_Work_Image?
+}
+
+model Our_Work_Image {
+  id        Int      @id @default(autoincrement())
+  imageId   String
+  imagePath String
+  workId    Int      @unique
+  ourWork   Our_Work @relation(fields: [workId], references: [id])
+}
+
+model Our_Service {
+  id          Int                @id @default(autoincrement())
+  title       String
+  description String
+  image       Our_Service_Image?
+}
+
+model Our_Service_Image {
+  id         Int         @id @default(autoincrement())
+  imageId    String
+  imagePath  String
+  workId     Int         @unique
+  ourService Our_Service @relation(fields: [workId], references: [id])
+}
+
+model Subscribers {
+  id    Int    @default(autoincrement())
+  email String @unique
+}
+
+enum Role {
+  ADMIN
+  EDITOR
 }
