@@ -6,6 +6,7 @@ import { SignUpDto } from './dto/signup.dto';
 import * as bcrypt from 'bcryptjs'
 import { LoginDto } from './dto/login.dto';
 import APIFeatures from 'src/utils/apiFeatures.utils';
+// import { Query } from 'express-serve-static-core';
 
 @Injectable()
 export class AuthService {
