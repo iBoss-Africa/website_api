@@ -31,30 +31,14 @@ model Our_Work {
   id          Int             @id @default(autoincrement())
   title       String
   description String
-  image       Our_Work_Image?
-}
-
-model Our_Work_Image {
-  id        Int      @id @default(autoincrement())
-  imageId   String
-  imagePath String
-  workId    Int      @unique
-  ourWork   Our_Work @relation(fields: [workId], references: [id])
+  image       String?
 }
 
 model Our_Service {
   id          Int                @id @default(autoincrement())
   title       String
   description String
-  image       Our_Service_Image?
-}
-
-model Our_Service_Image {
-  id         Int         @id @default(autoincrement())
-  imageId    String
-  imagePath  String
-  workId     Int         @unique
-  ourService Our_Service @relation(fields: [workId], references: [id])
+  image       String?
 }
 
 model Subscribers {

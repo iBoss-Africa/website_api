@@ -15,7 +15,16 @@ export const LoginSchema = Joi.object({
     password: Joi.string().required()
 }).options({
     abortEarly: false,
-   });
+  });
+
+  //  reset Password Validation
+export const ResetPasswordSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+    newPassword: Joi.string().required()
+}).options({
+    abortEarly: false,
+  });
 
 
 @Injectable()

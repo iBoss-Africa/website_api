@@ -12,18 +12,18 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private readonly prismaService: PrismaService, // Inject PrismaService
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), //get the token from the request
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
     });
   }
 
   async validate(payload){
-   const {id} = payload   //Remember to extract the email instead of id!!!
+   const {email} = payload   //Remember to extract the email instead of id!!!
 
-   const user = await this.prismaService.user.findFirst({
+   const user = await this.prismaService.user.findUnique({
     where: {
-        id: id
+        email: email
     }
    })
     if (!user) {

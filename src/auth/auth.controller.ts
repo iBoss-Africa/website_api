@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Users } from './users.model';
 import { LoginSchema, UserSchema, userValidation } from 'src/utils/joi.validation';
 import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -11,6 +12,7 @@ export class AuthController {
 
         
         @Get()
+        @UseGuards(AuthGuard())
         async getAllUsers(): Promise<Users[]>{
             return await this.authService.getAllUser()
         }
@@ -21,7 +23,7 @@ export class AuthController {
             @Body()
             signUpDto: SignUpDto): Promise<any>{
                 const user = await this.authService.newUser(signUpDto);
-                return user
+                return user;
         }
 
         @Post('/login')

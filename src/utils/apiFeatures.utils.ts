@@ -4,15 +4,12 @@ import { JwtService } from '@nestjs/jwt';
 
 export default class APIFeatures{
 
-
-
-
     static async assignJwtToken(
-        userId: string,
+        email: string,
         jwtService: JwtService
     ): Promise<string>{
 
-        const payload = {id: userId}
+        const payload = {email: email}
         const token = await jwtService.sign(payload);
 
         return token;
