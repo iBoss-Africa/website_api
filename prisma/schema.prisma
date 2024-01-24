@@ -19,13 +19,12 @@ model User {
   role      userRole     @default(USER)
 }
 
-
 model Our_Work {
   id          Int             @id @default(autoincrement())
   title       String
   description String
   image       String?
-  userId      Int?
+  userId Int 
 }
 
 model Our_Service {
@@ -33,7 +32,7 @@ model Our_Service {
   title       String
   description String
   image       String?
-  userId      Int 
+  userId Int
 }
 
 model Subscribers {

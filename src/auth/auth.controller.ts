@@ -13,10 +13,10 @@ export class AuthController {
         
         @Get()
         @UseGuards(AuthGuard())
-        async getAllUsers(): Promise<Users[]>{
+        async getAllUsers(){
             return await this.authService.getAllUser()
         }
-
+        // new admin signup
         @Post('/')
         @UsePipes(new userValidation(UserSchema))
         async signup(
@@ -26,6 +26,8 @@ export class AuthController {
                 return user;
         }
 
+        // Admin login
+        
         @Post('/login')
         async login(
             @Body(new userValidation(LoginSchema) ) 
