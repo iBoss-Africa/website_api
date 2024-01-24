@@ -21,7 +21,7 @@ export class AuthController {
         @UsePipes(new userValidation(UserSchema))
         async signup(
             @Body()
-            signUpDto: SignUpDto): Promise<any>{
+            signUpDto: SignUpDto): Promise<{token: string}>{
                 const user = await this.authService.newUser(signUpDto);
                 return user;
         }

@@ -17,8 +17,24 @@ export class RolesGuard implements CanActivate{
 }
 
 function matchRoles(roles, userRole){
-    if(!roles.includes(userRole))return false;
-    return true;
+    // if(!roles.includes(userRole))return false;
+    // return true;
+
+    if(Array.isArray(userRole)){
+        return roles.some(role => userRole.includes(role));
+    } else {
+        return roles.includes(userRole);
+    }
 }
 
+// function matchRoles(roles, userRole){
+//     const userRoleString = userRole.toString();
+//     if(!roles.includes(userRoleString)) return false;
+//     return true;
+// }
+
+// function matchRoles(roles, userRole){
+//     if (!userRole || !roles.includes(userRole.toString())) return false;
+//     return true;
+// }
 
