@@ -26,6 +26,22 @@ export const ResetPasswordSchema = Joi.object({
     abortEarly: false,
   });
 
+  //   ourService Validation
+export const OurServiceSchema = Joi.object({
+    title: Joi.string(),
+    description: Joi.string(),
+    image: Joi.string().uri(),
+    id: Joi.any(),
+    email: Joi.any(),
+    name: Joi.any(),
+    password: Joi.any(),
+    createdAt: Joi.any(),
+    updatedAt: Joi.any(),
+    role: Joi.any(),
+}).options({
+    abortEarly: false,
+  });
+
 
 @Injectable()
 export class userValidation implements PipeTransform {
@@ -35,10 +51,13 @@ export class userValidation implements PipeTransform {
         const { error } = this.schema.validate(value, { abortEarly: false });
      
         if (error) {
-          throw new BadRequestException('Validation failed', error.message);
-        }
-     
-        return value;
+          throw new BadRequestException('Validation failed', error.toString());
       }
 
+    
+        return value;
+      
+
+    
+    }
 }

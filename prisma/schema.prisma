@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../node_modules/.prisma/client"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -15,23 +16,19 @@ model User {
   password  String   @db.VarChar(60)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  role      Role     @default(ADMIN)
-  avatar    Avatar?
+  role      userRole     @default(USER)
+  Our_service Our_Service[]
+  Our_Work Our_Work?
 }
 
-model Avatar {
-  id        Int    @id @default(autoincrement())
-  imageId   String
-  imagePath String
-  userId    Int    @unique
-  user      User   @relation(fields: [userId], references: [id])
-}
 
 model Our_Work {
   id          Int             @id @default(autoincrement())
   title       String
   description String
   image       String?
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
 }
 
 model Our_Service {
@@ -39,6 +36,8 @@ model Our_Service {
   title       String
   description String
   image       String?
+  user User @relation(fields: [userId], references: [id])
+  userId Int 
 }
 
 model Subscribers {
@@ -46,7 +45,7 @@ model Subscribers {
   email String @unique
 }
 
-enum Role {
+enum userRole {
   ADMIN
-  EDITOR
+  USER
 }

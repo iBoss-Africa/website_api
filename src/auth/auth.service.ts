@@ -40,7 +40,10 @@ export class AuthService {
                 }
                 });
             // generate token
-            const token = await APIFeatures.assignJwtToken(user.email, this.jwtService );
+            // const token = await APIFeatures.assignJwtToken(user.id, this.jwtService );
+
+            // Generate token
+            const token = await APIFeatures.assignJwtToken(user, this.jwtService );
             console.log(token)
 
                 return {token};
@@ -69,7 +72,10 @@ export class AuthService {
         }
 
         // Generate token
-        const token = await APIFeatures.assignJwtToken(user.email, this.jwtService )
+        // const token = await APIFeatures.assignJwtToken(user.id, this.jwtService )
+
+        // Generate token
+        const token = await APIFeatures.assignJwtToken(user, this.jwtService );
 
         return {token}
     }
