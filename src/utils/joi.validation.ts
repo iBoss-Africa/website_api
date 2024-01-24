@@ -53,11 +53,6 @@ export class userValidation implements PipeTransform {
         if (error) {
           throw new BadRequestException('Validation failed', error.toString());
       }
-
-    
         return value;
-      
-
-    
     }
 }

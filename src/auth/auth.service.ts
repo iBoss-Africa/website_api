@@ -23,14 +23,13 @@ export class AuthService {
 
         // Check if email already exist
         const userExist = await this.prisma.user.findUnique({where:{email}});
-
-        // hashing Password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
         
         if(userExist){
             throw new ConflictException('Email already exist.');
         }
+        // hashing Password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
             // Creating new user
             const user =  await this.prisma.user.create({
                 data: {
@@ -39,18 +38,13 @@ export class AuthService {
                     password:hashedPassword
                 }
                 });
-            // generate token
-            // const token = await APIFeatures.assignJwtToken(user.id, this.jwtService );
-
             // Generate token
             const token = await APIFeatures.assignJwtToken(user, this.jwtService );
-            console.log(token)
 
                 return {token};
-       
-
-
     }
+
+    
 
     async login(loginDto:LoginDto): Promise<{token: string}>{
         const {email, password} = loginDto;
@@ -70,9 +64,6 @@ export class AuthService {
         if(!isPasswordMatch){
             throw new UnauthorizedException('Invali email or password');
         }
-
-        // Generate token
-        // const token = await APIFeatures.assignJwtToken(user.id, this.jwtService )
 
         // Generate token
         const token = await APIFeatures.assignJwtToken(user, this.jwtService );
