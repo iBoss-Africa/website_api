@@ -17,8 +17,6 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   role      userRole     @default(USER)
-  Our_service Our_Service[]
-  Our_Work Our_Work?
 }
 
 
@@ -27,8 +25,7 @@ model Our_Work {
   title       String
   description String
   image       String?
-  user User @relation(fields: [userId], references: [id])
-  userId Int @unique
+  userId      Int?
 }
 
 model Our_Service {
@@ -36,8 +33,7 @@ model Our_Service {
   title       String
   description String
   image       String?
-  user User @relation(fields: [userId], references: [id])
-  userId Int 
+  userId      Int 
 }
 
 model Subscribers {
