@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
+import { OurWorkModule } from './our-work/our-work.module';
 import { ServicesModule } from './services/services.module';
 
 
@@ -14,10 +15,10 @@ import { ServicesModule } from './services/services.module';
 
     AuthModule,
     PrismaService,
-    ServicesModule,
-    
+    OurWorkModule,
+    ServicesModule
   ],
-  controllers: [ ],
+  controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
