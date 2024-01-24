@@ -1,4 +1,4 @@
-import { Controller, Body, Post, UsePipes, UseGuards, Get, Query, Param} from '@nestjs/common';
+import { Controller, Body, Post, UsePipes, UseGuards, Get, Query, Param, Put, Patch, Delete} from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { ServiceDto } from './dto/service.dto';
 import { OurService } from './ourService.model';
@@ -7,7 +7,8 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
-import { OurServiceSchema, userValidation } from 'src/utils/joi.validation';
+import { OurServiceSchema, UpdateOurServiceSchema, userValidation } from 'src/utils/joi.validation';
+import { UpdateDto } from './dto/update.dto';
 
 @Controller('services')
 export class ServicesController {
@@ -23,15 +24,16 @@ export class ServicesController {
         // Get specific service
         @Get(':id')
         @UseGuards(AuthGuard(), RolesGuard)
-        @Roles('ADMIN', 'USER') //You can pass multiple roles
+        @Roles('ADMIN') //You can pass multiple roles
         async getOne(@Param('id') id: string){
             return await this.serviceService.getOne(parseInt(id));
         }
 
+        // Create new Service
         @Post('/')
         @UsePipes(new userValidation(OurServiceSchema))
         @UseGuards(AuthGuard(), RolesGuard)
-        @Roles('ADMIN', 'USER') //You can pass multiple roles
+        @Roles('ADMIN') //You can pass multiple roles
         async createNewService(
             @Body()
             serviceDto:ServiceDto,
@@ -41,5 +43,25 @@ export class ServicesController {
             return this.serviceService.newService(serviceDto, user)
         }
             
+        // Update Service
+        @Patch(':id')
+        // @UsePipes(new userValidation(UpdateOurServiceSchema))
+        @UseGuards(AuthGuard(), RolesGuard)
+        @Roles('ADMIN') //You can pass multiple roles
+        async updateService(
+            @Body()
+            updateDto: UpdateDto,
+            @Param('id') id: string
+        ){
+            return this.serviceService.updateService(updateDto, +id)
+        }
+
+        // Delete service
+        @Delete(':id')
+        @UseGuards(AuthGuard(), RolesGuard)
+        @Roles('ADMIN') //You can pass multiple roles
+        async deleteOne(@Param('id') id: string){
+            return this.serviceService.deleteService(+id)
+        }
     
 }
