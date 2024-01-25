@@ -1,4 +1,4 @@
-import { Controller, Body, Post, UsePipes, UseGuards, Get, Query, Param, Put, Patch, Delete} from '@nestjs/common';
+import { Controller, Body, Post, UsePipes, UseGuards, Get, Query, Param, Put, Patch, Delete, NotFoundException} from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { ServiceDto } from './dto/service.dto';
 import { OurService } from './ourService.model';
@@ -9,6 +9,7 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { OurServiceSchema, UpdateOurServiceSchema, userValidation } from 'src/utils/joi.validation';
 import { UpdateDto } from './dto/update.dto';
+import { NotFoundError } from 'rxjs';
 
 @Controller('services')
 export class ServicesController {
@@ -60,8 +61,10 @@ export class ServicesController {
         @Delete(':id')
         @UseGuards(AuthGuard(), RolesGuard)
         @Roles('ADMIN') //You can pass multiple roles
-        async deleteOne(@Param('id') id: string){
-            return this.serviceService.deleteService(+id)
+        async deleteOne(
+            @Param('id') id: string
+        ): Promise<void>{
+            return this.serviceService.deleteService(+id);
         }
     
 }

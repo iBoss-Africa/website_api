@@ -5,6 +5,7 @@ import { User } from '@prisma/client';
 import { OurService } from './ourService.model';
 import { UpdateDto } from './dto/update.dto';
 import { NotFoundError } from 'rxjs';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 
 @Injectable()
 export class ServicesService {
@@ -19,9 +20,9 @@ export class ServicesService {
   }
 
   // get specific service
-  async getOne(id){
+  async getOne(serviceId: number){
     const service = await this.prisma.our_Service.findUnique({where:{
-      id: id
+      id: serviceId
     }})
 
     if(service){
@@ -56,11 +57,11 @@ export class ServicesService {
 
 
   // Update a service
-  async updateService(updateDto: UpdateDto, id: number){
+  async updateService(updateDto: UpdateDto, serviceId: number){
     const {title, description, image} = updateDto;
 
     // Check if the service exist in the database
-    const isExist = await this.prisma.our_Service.findUnique({where:{id: id}});
+    const isExist = await this.prisma.our_Service.findUnique({where:{id: serviceId}});
 
     if(!isExist){
       throw  new NotFoundException('Service not found.');
@@ -68,18 +69,21 @@ export class ServicesService {
 
     // Update the document
     const updateDocument = await this.prisma.our_Service.update({where:{
-      id: id},
+      id: serviceId},
       data:{title, description, image}
-    })
+    });
 
     return updateDocument;
   }
 
   // Delete Service
-  async deleteService(id: number){
-    
-    return await this.prisma.our_Service.delete({
-      where: {id}
-    })
+  async deleteService(serviceId: number): Promise<void>{
+    const serviceToDelete = await this.prisma.our_Service.findUnique({where:{id: serviceId}});
+
+    if(!serviceToDelete){
+      throw new NotFoundException('Service not found.');
+    }
+
+    await this.prisma.our_Service.delete({where: {id: serviceId}});
   }
 }
