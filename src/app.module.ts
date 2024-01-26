@@ -3,6 +3,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
 import { ServicesModule } from './services/services.module';
+import { QuantumModule } from './quantum/quantum.module';
 
 
 @Module({
@@ -15,6 +16,7 @@ import { ServicesModule } from './services/services.module';
     AuthModule,
     PrismaService,
     ServicesModule,
+    QuantumModule,
     
   ],
   controllers: [ ],
