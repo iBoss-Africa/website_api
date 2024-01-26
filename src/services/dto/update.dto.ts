@@ -1,19 +1,21 @@
 import { IsNotEmpty, IsOptional, IsString, Length } from "class-validator"
-import { PartialType } from '@nestjs/mapped-types';
-import { ServiceDto } from "./service.dto";
+import { ApiProperty } from "@nestjs/swagger";
 
-export class UpdateDto extends PartialType(ServiceDto){
 
- 
+export class UpdateDto{
+
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     @Length(5, 255)
     readonly title: string;
 
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     readonly description: string;
-
+    
+    @ApiProperty()
     @IsOptional()
     image: string;
 

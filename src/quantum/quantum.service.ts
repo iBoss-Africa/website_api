@@ -14,7 +14,7 @@ export class QuantumService {
   // Get all service
   async getAll(){
     const allResult = await this.prisma.our_Service_Quantum.findMany();
-    return allResult
+    return allResult;
   }
 
   // get specific service
@@ -30,9 +30,9 @@ export class QuantumService {
     return service;
   }
 
-  // Create new service ==> POST v1/api/iboss
-  async newService(QuantumServiceDto: QuantumServiceDto, user: User): Promise<OurService>{
-    const { title, description, image } = QuantumServiceDto;
+  // Create new service ==> POST v1/api/quantum/
+  async newService(quantumServiceDto: QuantumServiceDto, user: User): Promise<OurService>{
+    const { title, description, image } = quantumServiceDto;
 
     // Get the current user id.
     const existingUser = user.id;
@@ -52,7 +52,7 @@ export class QuantumService {
   }
 
   // Update a service
-  async updateService(updateDto: UpdateDto, serviceId: number){
+  async updateService(updateDto: UpdateDto, serviceId: number): Promise<OurService>{
     const {title, description, image} = updateDto;
 
     // Check if the service exist in the database
