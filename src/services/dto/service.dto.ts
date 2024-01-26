@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsOptional, IsString, Length } from "class-validator"
 
 
-export class ServiceDto{
+export class ServiceDto {
 
  
     @IsNotEmpty()
@@ -15,5 +15,7 @@ export class ServiceDto{
 
     @IsOptional()
     image: string;
+
+    readonly userId: number;
 
 }

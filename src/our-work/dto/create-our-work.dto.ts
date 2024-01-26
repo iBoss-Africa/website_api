@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
 
-export class CreateOurWorkDto {
+export class OurWorkDto {
     @IsNotEmpty()
     @IsString()
     readonly title: string

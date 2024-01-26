@@ -1,15 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { OurWork } from './our-work.model';
-import { CreateOurWorkDto } from './dto/create-our-work.dto';
-import { UpdateOurWorkDto } from './dto/update-our-work.dto';
+import { OurWorkDto } from './dto/create-our-work.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class OurWorkService {
     constructor(private prisma: PrismaService) { }
 
-    async create(createOurWorkDto: CreateOurWorkDto): Promise<OurWork> {
-        return this.prisma.our_Work.create({ data: createOurWorkDto });
+    async create(OurWorkDto: OurWorkDto, user: User): Promise<OurWork> {
+        return this.prisma.our_Work.create({ data: { ...OurWorkDto, userId: user.id } });
     }
 
     async findAll(): Promise<OurWork[]> {
@@ -20,7 +20,7 @@ export class OurWorkService {
         return this.prisma.our_Work.findUnique({ where: { id } });
     }
 
-    update(id: number, updateOurWorkDto: UpdateOurWorkDto): Promise<OurWork> {
+    update(id: number, updateOurWorkDto: OurWorkDto): Promise<OurWork> {
         return this.prisma.our_Work.update({
             where: { id },
             data: updateOurWorkDto
