@@ -1,11 +1,11 @@
 -- DropForeignKey
-ALTER TABLE "Our_Service" DROP CONSTRAINT "Our_Service_userId_fkey";
+-- ALTER TABLE "Our_Service" DROP CONSTRAINT "Our_Service_userId_fkey";
 
 -- DropForeignKey
-ALTER TABLE "Our_Work" DROP CONSTRAINT "Our_Work_userId_fkey";
+-- ALTER TABLE "Our_Work" DROP CONSTRAINT "Our_Work_userId_fkey";
 
 -- DropIndex
-DROP INDEX "Our_Work_userId_key";
+-- DROP INDEX "Our_Work_userId_key";
 
 -- CreateTable
 CREATE TABLE "Our_Work_Quantum" (

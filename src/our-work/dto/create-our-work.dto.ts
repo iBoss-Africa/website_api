@@ -12,4 +12,6 @@ export class CreateOurWorkDto {
 
     @IsString()
     readonly image: string
+
+    readonly userId: number
 }
