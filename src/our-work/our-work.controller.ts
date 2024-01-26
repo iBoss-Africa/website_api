@@ -12,7 +12,7 @@ export class OurWorkController {
     constructor(private readonly ourWorkService: OurWorkService) { }
 
     @Post()
-    @UseGuards(AuthGuard, RolesGuard)
+    @UseGuards(AuthGuard(), RolesGuard)
     @Roles('ADMIN')
     create(@Body() createOurWorkDto: OurWorkDto, @CurrentUser() user: User) {
         return this.ourWorkService.create(createOurWorkDto, user);
@@ -29,14 +29,14 @@ export class OurWorkController {
     }
 
     @Patch(':id')
-    @UseGuards(AuthGuard, RolesGuard)
+    @UseGuards(AuthGuard(), RolesGuard)
     @Roles('ADMIN')
     update(@Param('id') id: string, @Body() updateOurWorkDto: OurWorkDto) {
         return this.ourWorkService.update(+id, updateOurWorkDto);
     }
 
     @Delete(':id')
-    @UseGuards(AuthGuard, RolesGuard)
+    @UseGuards(AuthGuard(), RolesGuard)
     @Roles('ADMIN')
     remove(@Param('id') id: string) {
         return this.ourWorkService.remove(+id);
