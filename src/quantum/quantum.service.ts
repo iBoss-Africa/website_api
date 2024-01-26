@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma.service';
 import { User } from '@prisma/client';
 import { QuantumServiceDto } from './dto/quantumService.dto';
 import { UpdateDto } from './dto/update.dto';
+import { OurService } from './quantum.model';
 
 @Injectable()
 export class QuantumService {
@@ -30,7 +31,7 @@ export class QuantumService {
   }
 
   // Create new service ==> POST v1/api/iboss
-  async newService(QuantumServiceDto: QuantumServiceDto, user: User){
+  async newService(QuantumServiceDto: QuantumServiceDto, user: User): Promise<OurService>{
     const { title, description, image } = QuantumServiceDto;
 
     // Get the current user id.
