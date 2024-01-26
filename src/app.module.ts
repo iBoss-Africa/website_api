@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { INestApplication, Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
@@ -23,4 +23,4 @@ import { QuantumModule } from './quantum/quantum.module';
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

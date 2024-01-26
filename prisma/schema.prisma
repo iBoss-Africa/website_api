@@ -1,7 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  provider        = "prisma-client-js"
+  output          = "../node_modules/.prisma/client"
+  previewFeatures = ["fullTextIndex", "fullTextSearch"]
 }
 
 datasource db {
@@ -16,48 +16,43 @@ model User {
   password  String   @db.VarChar(60)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  role      userRole     @default(USER)
+  role      userRole @default(USER)
 }
 
 model Our_Work {
-  id          Int             @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   title       String
   description String
   image       String?
-  userId Int 
+  userId      Int?
 }
 
 model Our_Service {
-  id          Int                @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   title       String
   description String
   image       String?
-  userId Int
+  userId      Int
 }
 
-model Subscribers {
-  id    Int    @default(autoincrement())
-  email String @unique
-}
-
-// QUANTUM SCHEMAS
+// Quantum
 model Our_Work_Quantum {
-  id          Int             @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   title       String
   description String
   image       String?
-  userId Int 
+  userId      Int?
 }
 
 model Our_Service_Quantum {
-  id          Int                @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   title       String
   description String
   image       String?
-  userId Int
+  userId      Int
 }
 
-model Subscribers_Quantum {
+model Subscribers {
   id    Int    @default(autoincrement())
   email String @unique
 }
