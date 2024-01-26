@@ -3,13 +3,19 @@ import { PrismaService } from 'src/prisma.service';
 import { OurWork } from './our-work.model';
 import { CreateOurWorkDto } from './dto/create-our-work.dto';
 import { UpdateOurWorkDto } from './dto/update-our-work.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class OurWorkService {
     constructor(private prisma: PrismaService) { }
 
-    async create(createOurWorkDto: CreateOurWorkDto): Promise<OurWork> {
-        return this.prisma.our_Work.create({ data: createOurWorkDto });
+    async create(createOurWorkDto: CreateOurWorkDto, user: User): Promise<OurWork>{
+        const {title, description, image} = createOurWorkDto;
+
+         // Get the current user id.
+    const existingUser = user.id;
+
+        return await this.prisma.our_Work.create({ data: {title, description, image, userId: existingUser} });
     }
 
     async findAll(): Promise<OurWork[]> {

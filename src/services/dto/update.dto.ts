@@ -1,7 +1,8 @@
 import { IsNotEmpty, IsOptional, IsString, Length } from "class-validator"
+import { PartialType } from '@nestjs/mapped-types';
+import { ServiceDto } from "./service.dto";
 
-
-export class UpdateDto{
+export class UpdateDto extends PartialType(ServiceDto){
 
  
     @IsNotEmpty()
