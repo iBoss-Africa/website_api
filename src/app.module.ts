@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
 import { OurWorkModule } from './our-work/our-work.module';
 import { ServicesModule } from './services/services.module';
+import { QuantumModule } from './quantum/quantum.module';
 
 
 @Module({
@@ -15,6 +16,7 @@ import { ServicesModule } from './services/services.module';
 
     AuthModule,
     PrismaService,
+    QuantumModule,
     OurWorkModule,
     ServicesModule
   ],

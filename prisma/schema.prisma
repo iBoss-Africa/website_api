@@ -40,6 +40,28 @@ model Subscribers {
   email String @unique
 }
 
+// QUANTUM SCHEMAS
+model Our_Work_Quantum {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String
+  image       String?
+  userId Int 
+}
+
+model Our_Service_Quantum {
+  id          Int                @id @default(autoincrement())
+  title       String
+  description String
+  image       String?
+  userId Int
+}
+
+model Subscribers_Quantum {
+  id    Int    @default(autoincrement())
+  email String @unique
+}
+
 enum userRole {
   ADMIN
   USER

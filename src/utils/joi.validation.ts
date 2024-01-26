@@ -42,6 +42,16 @@ export const OurServiceSchema = Joi.object({
     abortEarly: false,
   });
 
+  //   Update ourService Validation
+export const UpdateOurServiceSchema = Joi.object({
+    title: Joi.string(),
+    description: Joi.string(),
+    image: Joi.string().uri(),
+    
+}).options({
+    abortEarly: false,
+  });
+
 
 @Injectable()
 export class userValidation implements PipeTransform {
