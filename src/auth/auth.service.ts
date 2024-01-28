@@ -100,7 +100,7 @@ export class AuthService {
             throw new NotFoundException('user not found.');
         }
 
-        if(isExist || user.role === 'SUPER_ADMIN'){
+        if(isExist && user.role === 'SUPER_ADMIN'){
             return await this.prisma.user.update({where:{id: id}, data:{isDeleted:true}})
         }else{
             throw new NotFoundException('User not found')
