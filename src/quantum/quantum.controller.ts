@@ -38,11 +38,11 @@ export class QuantumController {
         @Roles('ADMIN') //You can pass multiple roles
         async createNewService(
             @Body()
-            QuantumServiceDto:QuantumServiceDto,
+            quantumServiceDto:QuantumServiceDto,
             @CurrentUser() user: User,
 
         ){
-            return this.quantumService.newService(QuantumServiceDto, user)
+            return this.quantumService.newService(quantumServiceDto, user)
         }
             
         // Update Service

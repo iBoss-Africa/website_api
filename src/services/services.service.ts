@@ -4,6 +4,7 @@ import { ServiceDto } from './dto/service.dto';
 import { User } from '@prisma/client';
 import { UpdateDto } from './dto/update.dto';
 import { Query } from 'express-serve-static-core';
+import { OurService } from './ourService.model';
 
 @Injectable()
 export class ServicesService {
@@ -52,7 +53,7 @@ export class ServicesService {
   }
 
   // Update a service
-  async updateService(updateDto: UpdateDto, serviceId: number){
+  async updateService(updateDto: UpdateDto, serviceId: number): Promise<OurService>{
     const {title, description, image} = updateDto;
 
     // Check if the service exist in the database
