@@ -26,10 +26,12 @@ export class AuthService {
         return await this.prisma.user.findMany({where: {isDeleted: true}});
     }
 
-    async newUser(signUpDto:SignUpDto):Promise<User>{
+    // Creating new Admin
+    async newUser(signUpDto:SignUpDto, user:User):Promise<{token: string}>{
         const {name, email, password} = signUpDto;
 
-        // Check if email already exist
+        if(user.role === 'SUPER_ADMIN'){
+                // Check if email already exist
         const userExist = await this.prisma.user.findUnique({where:{email}});
         
         if(userExist){
@@ -39,18 +41,22 @@ export class AuthService {
         const hashedPassword = await bcrypt.hash(password, 10);
 
             // Creating new user
-            const user =  await this.prisma.user.create({
+            const newUser =  await this.prisma.user.create({
                 data: {
                     name,
                     email,
                     password:hashedPassword
                 }
                 });
-            // // Generate token
-            // const token = await APIFeatures.assignJwtToken(user, this.jwtService );
 
-                // return {token};
-                return user;
+            // Generate token
+            const token = await APIFeatures.assignJwtToken(user, this.jwtService );
+            return {token};
+            
+        }else{
+            throw new UnauthorizedException('You are not allowed to do that.')
+        }
+        
     }
     
 
@@ -80,13 +86,12 @@ export class AuthService {
     }
 
     // Edit user profile
-
     async editProfile(id: number, user:User, updateUserDto: UpdateUserDto){
         const {email, name} = updateUserDto;
 
         // confirm ownership
         if(id != user.id){
-            throw new NotFoundException('user not found.');
+            throw new NotFoundException('User not found.');
         }else{
             return await this.prisma.user.update({where: {id: user.id}, data:{email, name}});
         }
@@ -96,16 +101,36 @@ export class AuthService {
     async trash(id:number, user:User){
         // Check if the use exist
         const isExist = await this.prisma.user.findUnique({where: {id:id, isDeleted: false}});
+        
         if(!isExist){
-            throw new NotFoundException('user not found.');
+            throw new NotFoundException('User not found.');
         }
 
-        if(isExist || user.role === 'SUPER_ADMIN'){
+        // Only a super admin have the right to deactivate an existing admin.
+        if(user.role === 'SUPER_ADMIN'){
             return await this.prisma.user.update({where:{id: id}, data:{isDeleted:true}})
         }else{
-            throw new NotFoundException('User not found')
+            throw new UnauthorizedException('You are not allowed to do that.')
         }
     }
+
+
+    // Restore admin
+    async restore(id: number, user:User): Promise<{}>{
+        // find the user to restore.
+        const isExist = await this.prisma.user.findFirst({where:{id: id, isDeleted:true}});
+        if(!isExist){
+            throw new NotFoundException('User not found.');
+        }
+
+        // Only an admin can restore a soft deleted user;
+        if(user.role === 'SUPER_ADMIN'){
+            return await this.prisma.user.update({where:{id: id}, data:{isDeleted: false}})
+        }else{
+            throw new UnauthorizedException('you are not allowed to do that.')
+        }
+    }
+
 
     // Permanent Delete
     async delete(id: number, user:User){

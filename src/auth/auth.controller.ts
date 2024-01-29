@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards, UsePipes } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Users } from './users.model';
 import { LoginSchema, UserSchema, userValidation } from 'src/utils/joi.validation';
@@ -31,13 +31,14 @@ export class AuthController {
         @UsePipes(new userValidation(UserSchema))
         async signup(
             @Body()
-            signUpDto: SignUpDto): Promise<User>{
-                const user = this.authService.newUser(signUpDto);
-                return user;
+            signUpDto: SignUpDto,
+            @CurrentUser() user:User
+            ): Promise<{token: string}>{
+                const newUser = this.authService.newUser(signUpDto, user);
+                return newUser;
         }
 
         // Admin login
-        
         @Post('/login')
         async login(
             @Body(new userValidation(LoginSchema) ) 
@@ -76,8 +77,18 @@ export class AuthController {
             return this.authService.trash(parseInt(id), user);
         }
 
+        // Restore a soft deleted Admin
+        @Put('restore/:id')
+        @UseGuards(AuthGuard(), RolesGuard)
+        @Roles('SUPER_ADMIN')
+        async restore(
+            @Param('id') id: string,
+            @CurrentUser() user:User
+        ){
+            return this.authService.restore(parseInt(id), user);
+        }
+
         // Permanant Delete
-         //Soft delete user
          @Delete('delete/:id')
          @UseGuards(AuthGuard(), RolesGuard)
          @Roles('SUPER_ADMIN') //You can pass multiple roles

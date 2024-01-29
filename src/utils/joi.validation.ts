@@ -4,7 +4,12 @@ import * as Joi from 'joi';
 export const UserSchema = Joi.object({
     email: Joi.string().email().required(),
     name: Joi.string().required(),
-    password: Joi.string().required()
+    password: Joi.string().required(),
+    id: Joi.any(),
+    createdAt: Joi.any(),
+    updatedAt: Joi.any(),
+    role: Joi.any(),
+    isDeleted: Joi.any()
 }).options({
     abortEarly: false,
    });
@@ -38,6 +43,8 @@ export const OurServiceSchema = Joi.object({
     createdAt: Joi.any(),
     updatedAt: Joi.any(),
     role: Joi.any(),
+    isDeleted: Joi.any()
+
 }).options({
     abortEarly: false,
   });
@@ -48,9 +55,16 @@ export const UpdateOurServiceSchema = Joi.object({
     description: Joi.string(),
     image: Joi.string().uri(),
     
+    
 }).options({
     abortEarly: false,
   });
+
+  export const subscriberSchema = Joi.object({
+    email: Joi.string().email().required(),
+}).options({
+    abortEarly: false,
+   });
 
 
 @Injectable()

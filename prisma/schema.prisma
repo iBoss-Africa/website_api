@@ -54,7 +54,7 @@ model Our_Service_Quantum {
 }
 
 model Subscribers {
-  id    Int    @default(autoincrement())
+  id    Int   @unique @default(autoincrement())
   email String @unique
 }
 
