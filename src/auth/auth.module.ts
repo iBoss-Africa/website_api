@@ -9,13 +9,13 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
   imports: [
     // Setting up JWT
-    PassportModule.register({defaultStrategy:'jwt'}),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       // injecting the config seting
       imports: [ConfigModule],
-      inject:[ConfigService],
-      useFactory:(config: ConfigService)=>{
-        return{
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
           // Do not use process.env here, it will read undefined.
           secret: config.get<string>('JWT_SECRET'),
           signOptions: {
@@ -26,7 +26,7 @@ import { JwtStrategy } from './jwt.strategy';
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService,PrismaService, JwtStrategy],
+  providers: [AuthService, PrismaService, JwtStrategy],
   exports: [JwtStrategy, PassportModule]
 })
-export class AuthModule {}
+export class AuthModule { }
