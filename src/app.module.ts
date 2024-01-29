@@ -5,6 +5,7 @@ import { PrismaService } from './prisma.service';
 import { OurWorkModule } from './our-work/our-work.module';
 import { ServicesModule } from './services/services.module';
 import { QuantumModule } from './quantum/quantum.module';
+import { SubscribersModule } from './subscribers/subscribers.module';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import * as cors from 'cors';
@@ -22,7 +23,8 @@ import * as xssClean from 'xss-clean';
     PrismaService,
     QuantumModule,
     OurWorkModule,
-    ServicesModule
+    ServicesModule,
+    SubscribersModule
   ],
   controllers: [],
   providers: [],
@@ -34,11 +36,11 @@ export class AppModule {
         xssClean(),
         helmet(),
         cors(),
-        rateLimit({
-          windowMs: 10 * 60 * 1000, // 15 minutes
-          max: 100, // limit each IP to 100 requests per windowMs
-        }),
+        // rateLimit({
+        //   windowMs: 10 * 60 * 1000, // 15 minutes
+        //   max: 100, // limit each IP to 100 requests per windowMs
+        // }),
       )
-      .forRoutes('*');
+      .forRoutes('*')
  }
 }

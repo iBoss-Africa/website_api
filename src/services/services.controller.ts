@@ -8,7 +8,6 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { OurServiceSchema, UpdateOurServiceSchema, userValidation } from 'src/utils/joi.validation';
 import { UpdateDto } from './dto/update.dto';
-import {Query as ExpressQuery} from 'express-serve-static-core'
 
 
 @Controller('services')
@@ -32,9 +31,9 @@ export class ServicesController {
 
         // Create new Service
         @Post('/')
-        // @UsePipes(new userValidation(OurServiceSchema))
+        @UsePipes(new userValidation(OurServiceSchema))
         @UseGuards(AuthGuard(), RolesGuard)
-        @Roles('ADMIN') //You can pass multiple roles
+        @Roles('ADMIN','SUPER_ADMIN') //You can pass multiple roles
         async createNewService(
             @Body()
             serviceDto:ServiceDto,
@@ -48,13 +47,13 @@ export class ServicesController {
         @Patch(':id')
         // @UsePipes(new userValidation(UpdateOurServiceSchema))
         @UseGuards(AuthGuard(), RolesGuard)
-        @Roles('ADMIN') //You can pass multiple roles
+        @Roles('ADMIN', 'SUPER_ADMIN') //You can pass multiple roles
         async updateService(
             @Body()
             updateDto: UpdateDto,
             @Param('id') id: string
         ){
-            return this.serviceService.updateService(updateDto, +id)
+            return this.serviceService.updateService(updateDto, parseInt(id))
         }
 
         // Delete service
