@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsOptional, IsString, Length } from "class-validator"
 
 
-export class ServiceDto{
+export class ServiceDto {
 
     @ApiProperty()
     @IsNotEmpty()
@@ -18,5 +18,7 @@ export class ServiceDto{
     @ApiProperty()
     @IsOptional()
     image: string;
+
+    readonly userId: number;
 
 }

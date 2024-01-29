@@ -106,7 +106,6 @@ export class AuthService {
             throw new NotFoundException('User not found.');
         }
 
-        // Only a super admin have the right to deactivate an existing admin.
         if(user.role === 'SUPER_ADMIN'){
             return await this.prisma.user.update({where:{id: id}, data:{isDeleted:true}})
         }else{
