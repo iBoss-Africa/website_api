@@ -39,6 +39,6 @@ export class AppModule {
           max: 100, // limit each IP to 100 requests per windowMs
         }),
       )
-      .forRoutes('*');
+      .forRoutes('*')
  }
 }
