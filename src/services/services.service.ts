@@ -53,7 +53,7 @@ export class ServicesService {
   }
 
   // Update a service
-  async updateService(updateDto: UpdateDto, serviceId: number): Promise<OurService>{
+  async updateService(updateDto: UpdateDto, serviceId: number){
     const {title, description, image} = updateDto;
 
     // Check if the service exist in the database
