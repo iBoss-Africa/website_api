@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+import { Website } from "@prisma/client";
 
 export class OurWorkDto {
     @ApiProperty()
@@ -17,4 +18,8 @@ export class OurWorkDto {
     readonly image: string
 
     readonly userId: number
+
+    @ApiProperty()
+    @IsString()
+    readonly website: Website
 }

@@ -1,9 +1,10 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Website } from "@prisma/client";
 
 
-export class OurService implements Prisma.Our_ServiceCreateInput {
+export class OurService implements Prisma.OurServiceCreateInput {
     title: string;
     description: string;
     image: string;
     userId: number;
+    website: Website;
 }

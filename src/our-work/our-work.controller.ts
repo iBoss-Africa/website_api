@@ -32,8 +32,8 @@ export class OurWorkController {
     @Patch(':id')
     @UseGuards(AuthGuard(), RolesGuard)
     @Roles('ADMIN')
-    update(@Param('id') id: string, @Body() updateOurWorkDto: OurWorkDto) {
-        return this.ourWorkService.update(+id, updateOurWorkDto);
+    update(@Param('id') id: string, @Body() OurWorkDto: OurWorkDto) {
+        return this.ourWorkService.update(+id, OurWorkDto);
     }
 
     @Delete(':id')
