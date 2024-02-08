@@ -50,7 +50,7 @@ export class AuthService {
             });
 
             // Generate token
-            const token = await APIFeatures.assignJwtToken(user, this.jwtService);
+            const token = await APIFeatures.assignJwtToken(newUser, this.jwtService);
             return { token };
 
         } else {

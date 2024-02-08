@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { Website } from "@prisma/client";
 
@@ -19,7 +19,7 @@ export class OurWorkDto {
 
     readonly userId: number
 
-    @ApiProperty()
+    @IsOptional()
     @IsString()
     readonly website: Website
 }
