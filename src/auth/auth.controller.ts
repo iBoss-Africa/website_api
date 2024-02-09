@@ -10,6 +10,7 @@ import { UpdateUserDto } from './dto/update.dto';
 import { User } from '@prisma/client';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
+import { ChangePasswordDto } from './dto/changePassword.dto';
 // import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 
 @Controller('auth')
@@ -57,6 +58,19 @@ export class AuthController {
             @CurrentUser() user: User,
         ){
             return this.authService.editProfile(parseInt(id), user, updateUserDto);
+        }
+
+        // Change password
+        @Patch('password/:id')
+        @UseGuards(AuthGuard(), RolesGuard)
+        @Roles('ADMIN', 'SUPER_ADMIN')
+        async changePassword(
+            @Body()
+            changePasswordDto: ChangePasswordDto,
+            @Param('id') id: string,
+            @CurrentUser() user: User
+        ){
+            return this.authService.changePassword(parseInt(id), user,changePasswordDto);
         }
 
         // View Trash

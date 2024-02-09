@@ -22,10 +22,9 @@ export const LoginSchema = Joi.object({
     abortEarly: false,
   });
 
-  //  reset Password Validation
-export const ResetPasswordSchema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
+  //  chage Password Validation
+export const ChangePasswordSchema = Joi.object({
+    oldpPassword: Joi.string().required(),
     newPassword: Joi.string().required()
 }).options({
     abortEarly: false,
