@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "userRole" AS ENUM ('ADMIN', 'USER');
+CREATE TYPE "userRole" AS ENUM ('ADMIN', 'USER', 'SUPER_ADMIN');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -9,7 +9,8 @@ CREATE TABLE "User" (
     "password" VARCHAR(60) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "role" "userRole" NOT NULL DEFAULT 'USER',
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "role" "userRole" NOT NULL DEFAULT 'ADMIN',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -66,6 +67,9 @@ CREATE TABLE "Subscribers" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Subscribers_id_key" ON "Subscribers"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Subscribers_email_key" ON "Subscribers"("email");
