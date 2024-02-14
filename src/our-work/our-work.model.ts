@@ -1,8 +1,9 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Website } from "@prisma/client";
 
-export class OurWork implements Prisma.Our_WorkCreateInput {
+export class OurWork implements Prisma.OurWorkCreateInput {
     title: string;
     description: string;
     image: string;
-    userId: number
+    userId: number;
+    website: Website;
 }

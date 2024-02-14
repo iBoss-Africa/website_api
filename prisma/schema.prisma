@@ -20,38 +20,24 @@ model User {
   role      userRole @default(ADMIN)
 }
 
-model Our_Work {
+model OurWork {
   id          Int     @id @default(autoincrement())
   title       String
   description String
   image       String?
   userId      Int?
+  website     Website?
 }
 
-model Our_Service {
+model OurService {
   id          Int     @id @default(autoincrement())
   title       String
   description String
   image       String?
   userId      Int
+  website     Website?
 }
 
-// Quantum
-model Our_Work_Quantum {
-  id          Int     @id @default(autoincrement())
-  title       String
-  description String
-  image       String?
-  userId      Int?
-}
-
-model Our_Service_Quantum {
-  id          Int     @id @default(autoincrement())
-  title       String
-  description String
-  image       String?
-  userId      Int
-}
 
 model Subscribers {
   id    Int   @unique @default(autoincrement())
@@ -62,4 +48,9 @@ enum userRole {
   ADMIN
   USER
   SUPER_ADMIN
+}
+
+enum Website {
+  IBOSS
+  QUANTUM
 }
