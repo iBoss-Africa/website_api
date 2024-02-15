@@ -21,4 +21,7 @@ export class ServiceDto {
 
     readonly userId: number;
 
+    @IsOptional()
+    @IsString()
+    readonly website: string
 }

@@ -2,7 +2,7 @@ import { IsNotEmpty, IsOptional, IsString, Length } from "class-validator"
 import { ApiProperty } from "@nestjs/swagger";
 
 
-export class UpdateDto{
+export class UpdateDto {
 
     @ApiProperty()
     @IsNotEmpty()
@@ -14,9 +14,8 @@ export class UpdateDto{
     @IsNotEmpty()
     @IsString()
     readonly description: string;
-    
+
     @ApiProperty()
     @IsOptional()
     image: string;
-
 }

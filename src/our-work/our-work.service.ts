@@ -8,26 +8,26 @@ import { User } from '@prisma/client';
 export class OurWorkService {
     constructor(private prisma: PrismaService) { }
 
-    async create(OurWorkDto: OurWorkDto, user: User): Promise<OurWork> {
-        return this.prisma.our_Work.create({ data: { ...OurWorkDto, userId: user.id } });
+    async create(OurWorkDto: OurWorkDto, user: User, website): Promise<OurWork> {
+        return this.prisma.ourWork.create({ data: { ...OurWorkDto, userId: user.id, website } });
     }
 
-    async findAll(): Promise<OurWork[]> {
-        return this.prisma.our_Work.findMany();
+    async findAll(website): Promise<OurWork[]> {
+        return this.prisma.ourWork.findMany({ where: { website } });
     }
 
-    findOne(id: number): Promise<OurWork> {
-        return this.prisma.our_Work.findUnique({ where: { id } });
-    }
+    findOne(id: number, website): Promise<OurWork> {
+        return this.prisma.ourWork.findUnique({ where: { id, website } });
+    }y
 
-    update(id: number, updateOurWorkDto: OurWorkDto): Promise<OurWork> {
-        return this.prisma.our_Work.update({
-            where: { id },
-            data: updateOurWorkDto
+    update(id: number, OurWorkDto: OurWorkDto, website): Promise<OurWork> {
+        return this.prisma.ourWork.update({
+            where: { id, website },
+            data: OurWorkDto
         });
     }
 
-    remove(id: number): Promise<OurWork> {
-        return this.prisma.our_Work.delete({ where: { id } });
+    remove(id: number, website): Promise<OurWork> {
+        return this.prisma.ourWork.delete({ where: { id, website } });
     }
 }

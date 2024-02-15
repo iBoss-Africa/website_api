@@ -4,7 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaService } from './prisma.service';
 import { OurWorkModule } from './our-work/our-work.module';
 import { ServicesModule } from './services/services.module';
-import { QuantumModule } from './quantum/quantum.module';
 import { SubscribersModule } from './subscribers/subscribers.module';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
@@ -21,7 +20,6 @@ import * as xssClean from 'xss-clean';
 
     AuthModule,
     PrismaService,
-    QuantumModule,
     OurWorkModule,
     ServicesModule,
     SubscribersModule
@@ -42,5 +40,5 @@ export class AppModule {
         // }),
       )
       .forRoutes('*')
- }
+  }
 }
