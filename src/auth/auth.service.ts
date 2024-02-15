@@ -53,7 +53,7 @@ export class AuthService {
     }
 
 
-    async login(loginDto: LoginDto): Promise<{ token: string }> {
+    async login(loginDto: LoginDto): Promise<{  }> {
         const { email, password } = loginDto;
 
         // check is user exist
@@ -75,7 +75,7 @@ export class AuthService {
         // Generate token
         const token = await APIFeatures.assignJwtToken(user, this.jwtService);
 
-        return { token }
+        return { token, data: user }
     }
     // get a single user
     async getOne(id: number){
