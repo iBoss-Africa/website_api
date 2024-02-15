@@ -18,7 +18,7 @@ export class OurWorkService {
 
     findOne(id: number, website): Promise<OurWork> {
         return this.prisma.ourWork.findUnique({ where: { id, website } });
-    }
+    }y
 
     update(id: number, OurWorkDto: OurWorkDto, website): Promise<OurWork> {
         return this.prisma.ourWork.update({
