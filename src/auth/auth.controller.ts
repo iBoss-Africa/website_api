@@ -44,7 +44,7 @@ export class AuthController {
     async login(
         @Body(new userValidation(LoginSchema))
         loginDto: LoginDto
-    ): Promise<{ token: string }> {
+    ): Promise<{ }> {
         return this.authService.login(loginDto)
     }
 
