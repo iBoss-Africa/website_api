@@ -17,31 +17,32 @@ export class OurWorkController {
     @Post()
     @UseGuards(AuthGuard(), RolesGuard)
     @Roles('ADMIN')
-    create(@Body() createOurWorkDto: OurWorkDto, @CurrentUser() user: User, @Query('website') website: string) {
+    async create(@Body() createOurWorkDto: OurWorkDto, @CurrentUser() user: User, @Query('website') website: string) {
         return this.ourWorkService.create(createOurWorkDto, user, website);
     }
 
     @Get()
-    findAll(@Query('website') website: string) {
+    async findAll(@Query('website') website: string) {
         return this.ourWorkService.findAll(website);
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string, @Query('website') website: string) {
+    async findOne(@Param('id') id: string, @Query('website') website: string) {
         return this.ourWorkService.findOne(+id, website);
     }
 
     @Patch(':id')
     @UseGuards(AuthGuard(), RolesGuard)
     @Roles('ADMIN')
-    update(@Param('id') id: string, @Body() OurWorkDto: OurWorkDto, @Query('website') website: string) {
+    async update(@Param('id') id: string, @Body() OurWorkDto: OurWorkDto, @Query('website') website: string) {
         return this.ourWorkService.update(+id, OurWorkDto, website);
     }
 
     @Delete(':id')
     @UseGuards(AuthGuard(), RolesGuard)
     @Roles('ADMIN')
-    remove(@Param('id') id: string, @Query('website') website: string) {
-        return this.ourWorkService.remove(+id, website);
+    async remove(@Param('id') id: string, @Query('website') website: string) {
+        await this.ourWorkService.remove(+id, website);
+        return { message: 'Work deleted successfully.' }
     }
 }
