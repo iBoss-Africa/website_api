@@ -18,7 +18,7 @@ export class OurWorkService {
 
     async findOne(id: number, website): Promise<OurWork> {
         return this.prisma.ourWork.findUnique({ where: { id, website } });
-    }y
+    } y
 
     async update(id: number, OurWorkDto: OurWorkDto, website): Promise<OurWork> {
         return this.prisma.ourWork.update({
@@ -28,7 +28,7 @@ export class OurWorkService {
     }
 
     async remove(id: number, website): Promise<OurWork> {
-        const work = await this.prisma.ourService.findUnique({ where: { id, website } });
+        const work = await this.prisma.ourWork.findUnique({ where: { id, website } });
         if (!work) {
             throw new NotFoundException('Work not found.');
         }
