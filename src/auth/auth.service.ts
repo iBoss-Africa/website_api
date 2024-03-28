@@ -32,16 +32,14 @@ export class AuthService {
         const { name, email, password } = signUpDto;
 
         if (user.role === 'SUPER_ADMIN') {
-            // Check if email already exist
             const userExist = await this.prisma.user.findUnique({ where: { email } });
 
             if (userExist) {
                 throw new ConflictException('Email already exist.');
             }
-            // hashing Password
+
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            // Creating new user
             const newUser = await this.prisma.user.create({
                 data: {
                     name,
@@ -83,7 +81,9 @@ export class AuthService {
         // Generate token
         const token = await APIFeatures.assignJwtToken(user, this.jwtService);
 
-        return { token, data: user }
+        const { password: _, ...userWithoutPassword } = user;
+
+        return { token, data: userWithoutPassword };
     }
     // get a single user
     async getOne(id: number){
