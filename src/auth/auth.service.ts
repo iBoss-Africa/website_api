@@ -75,7 +75,9 @@ export class AuthService {
         // Generate token
         const token = await APIFeatures.assignJwtToken(user, this.jwtService);
 
-        return { token, data: user }
+        const { password: _, ...userWithoutPassword } = user;
+
+        return { token, data: userWithoutPassword };
     }
     // get a single user
     async getOne(id: number){
