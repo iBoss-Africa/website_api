@@ -27,8 +27,8 @@ export class AuthController {
 
     // new admin signup
     @Post('/')
-    @UseGuards(AuthGuard(), RolesGuard)
-    @Roles('SUPER_ADMIN') //You can pass multiple roles
+    // @UseGuards(AuthGuard(), RolesGuard)
+    // @Roles('SUPER_ADMIN') //You can pass multiple roles
     @UsePipes(new userValidation(UserSchema))
     async signup(
         @Body()
